@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
             text
         });
     });
-
+//--------------------------------------------------
     //when disconnect
     //if user disconnects they are removed from users
     socket.on("disconnect", () => {
@@ -51,3 +51,11 @@ io.on("connection", (socket) => {
         io.emit("getUsers", users);
     });
 }) ;
+//------------------------------------------------------
+//delete this if something goes wrong
+io.on('disconnect', function(){
+    socketCleanup(); // this is a function to cleanup all listeners, just in case, so you can restart fresh
+    socket.on('connect', function(){
+        socketConnect();
+    });
+});
